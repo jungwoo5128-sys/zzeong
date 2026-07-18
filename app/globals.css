@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fafafa;
+  --foreground: #171717;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  /* 사이트 액센트 컬러 — 딥 인디고. 상단 Nav 배경 등 브랜드 톤을 잡는 데 사용. */
+  --accent: #1e3a8a;
+  --accent-foreground: #f5f5f4;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  /* 한국어 어절 단위로 줄바꿈. 공백 기준으로만 줄이 잘림 (단어 중간 끊김 방지). */
+  word-break: keep-all;
+  /* 아주 긴 영문 URL 등은 안전하게 강제 개행. */
+  overflow-wrap: break-word;
+}
+
+.prose-basic {
+  line-height: 1.75;
+}
+.prose-basic h1,
+.prose-basic h2,
+.prose-basic h3 {
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.prose-basic h2 {
+  font-size: 1.375rem;
+}
+.prose-basic h3 {
+  font-size: 1.125rem;
+}
+.prose-basic p {
+  margin: 1rem 0;
+}
+.prose-basic a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-basic ul,
+.prose-basic ol {
+  margin: 1rem 0;
+  padding-left: 1.25rem;
+}
+.prose-basic li {
+  margin: 0.25rem 0;
+}
+.prose-basic code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: #f1f1f1;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+.prose-basic pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+.prose-basic pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+.prose-basic blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1rem;
+  color: var(--muted);
+  margin: 1rem 0;
+}
