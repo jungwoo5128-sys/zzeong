@@ -144,12 +144,12 @@ export default function HomePage() {
           {/* About 문단들 — leading-[1.85]로 편안하게 */}
           <div className="mt-8 space-y-4 leading-[1.85] text-[var(--foreground)]/75">
             <p>
-              안녕하세요, 최정우입니다. 일상과 커뮤니티에서 발견한 페인포인트를
+              안녕하세요, 최정우입니다. 일상에서 발견한 페인포인트를
               실제 프로덕트로 옮기는 과정을 좋아합니다.
             </p>
             <p>
               지금은 서강대학교에서 Blackbox라는 창업동아리를 운영하고 있습니다.
-              홈페이지 제작 외주도 받고 싶습니다.
+              
             </p>
           </div>
           {/* CTA 버튼 — pill 형태, 흰 배경 + 부드러운 그림자.
