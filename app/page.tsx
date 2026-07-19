@@ -21,18 +21,60 @@ export default function HomePage() {
             - flex-col: 세로 배치
             - 중앙 블록(flex-1): 한자 5글자 + 구분선 + 캡션 (수직 중앙 정렬)
             - 하단 블록: 스크롤 큐 */}
-      <div className="flex min-h-[calc(100svh-10rem)] flex-col text-center">
+      <div className="relative flex min-h-[calc(100svh-10rem)] flex-col overflow-hidden text-center">
+        {/* 코너 장식 마크 — kyne 사이트 참조. 아주 작고 흐리게, 네 모서리에.
+            aria-hidden으로 스크린리더 무시. pointer-events-none으로 클릭 방해 없음. */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute left-2 top-2 text-sm text-[var(--muted)]/50 sm:left-4 sm:top-4"
+        >
+          ✦
+        </span>
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute right-2 top-2 text-sm text-[var(--muted)]/50 sm:right-4 sm:top-4"
+        >
+          +
+        </span>
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-16 left-2 text-sm text-[var(--muted)]/50 sm:bottom-20 sm:left-4"
+        >
+          ✜
+        </span>
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-16 right-2 text-sm text-[var(--muted)]/50 sm:bottom-20 sm:right-4"
+        >
+          ⋮
+        </span>
+
+        {/* 하단 웜 글로우 — 부드러운 오렌지 라디얼이 바닥에서 은은하게 배어나옴.
+            width 60% / height 32% 크기, 하단 -10% 위치로 살짝 잘려서 아래로 흘러넘치는 인상.
+            매우 넓게 퍼지도록 (transparent 70%까지). 정적 (모션 없음). */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-[10%] left-1/2 h-[32%] w-[60%] -translate-x-1/2"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, rgba(255, 138, 76, 0.45), rgba(255, 138, 76, 0.15) 40%, transparent 70%)",
+            filter: "blur(30px)",
+          }}
+        />
+
         {/* 중앙 정렬 콘텐츠 — 이름이 주역, 좌우명이 서포팅.
-            gap-12 sm:gap-16으로 두 블록 사이 공간 확보. */}
-        <div className="flex flex-1 flex-col justify-center gap-12 sm:gap-16">
-          {/* ── 주역: 이름 + Personal Site 서브타이틀 ──
-              h1 = 페이지의 primary 정체성. 큰 사이즈 + 굵은 굵기 + 대문자로 위엄. */}
+            gap-12 sm:gap-16으로 두 블록 사이 공간 확보.
+            relative + z-10 으로 배경 글로우 위에 오도록. */}
+        <div className="relative z-10 flex flex-1 flex-col justify-center gap-12 sm:gap-16">
+          {/* ── 주역: 이름 (이탤릭 세리프로 kyne 톤 채용) ──
+              font-serif italic + 소문자 → 세련된 매거진 편집체 느낌.
+              마침표(.) 하나 더 붙여서 완결감. */}
           <div>
             <h1
-              className="hanja-char text-5xl font-black uppercase leading-none tracking-tight sm:text-7xl"
+              className="hanja-char font-serif text-5xl italic leading-[1.05] tracking-tight sm:text-7xl"
               style={{ animationDelay: "0ms" }}
             >
-              Jeongwoo Choe
+              Jeongwoo Choe.
             </h1>
             <p
               className="hanja-char mt-5 text-sm uppercase tracking-[0.25em] text-[var(--muted)] sm:text-base"
@@ -94,9 +136,9 @@ export default function HomePage() {
           <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
             About
           </p>
-          {/* 태그라인 — h2(랜딩 h1 다음). 큰 사이즈로 정체성 강조.
-              leading-[1.15]로 큰 글자 사이 타이트하게 */}
-          <h2 className="mt-6 text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl">
+          {/* 태그라인 — h2(랜딩 h1 다음). 한글이라 이탤릭 대신 세리프 upright.
+              font-hanja(한글 세리프 스택) + font-medium으로 편집체 톤 유지. */}
+          <h2 className="font-hanja mt-6 text-3xl font-medium leading-[1.2] tracking-tight sm:text-4xl">
             관찰한 페인포인트를 프로덕트로 구현하는 사람.
           </h2>
           {/* About 문단들 — leading-[1.85]로 편안하게 */}
@@ -107,7 +149,7 @@ export default function HomePage() {
             </p>
             <p>
               지금은 서강대학교에서 Blackbox라는 창업동아리를 운영하고 있습니다.
-              홈페이지 제작 외주도 받고 있어요.
+              홈페이지 제작 외주도 받고 싶습니다.
             </p>
           </div>
           {/* CTA 버튼 — pill 형태, 흰 배경 + 부드러운 그림자.
@@ -150,13 +192,10 @@ export default function HomePage() {
                 기획
               </li>
               <li className="rounded-full border border-[var(--border)] px-2.5 py-1 text-xs text-[var(--muted)]">
-                전략
-              </li>
-              <li className="rounded-full border border-[var(--border)] px-2.5 py-1 text-xs text-[var(--muted)]">
                 Vibe coding
               </li>
               <li className="rounded-full border border-[var(--border)] px-2.5 py-1 text-xs text-[var(--muted)]">
-                UI/UX design
+                AI workflow
               </li>
             </ul>
           </div>

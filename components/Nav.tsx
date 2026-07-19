@@ -10,24 +10,27 @@ const items = [
 
 export default function Nav() {
   return (
-    // 딥 인디고 배경 + 밝은 텍스트. 사이트 첫 인상의 색 앵커.
-    <header className="bg-[var(--accent)] text-[var(--accent-foreground)]">
+    // 무색 배경 + 어두운 텍스트. kyne 사이트 참조 → 미니멀·에디토리얼 방향.
+    // 색 배경 대신 컨텐츠 배경(#fafafa) 그대로 사용, 아래 얇은 구분선만.
+    <header className="border-b border-[var(--border)] bg-[var(--background)]">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+        {/* 로고 — 이탤릭 세리프로 감각적인 매거진 마스트헤드 톤 */}
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight lowercase"
+          className="font-serif text-xl italic tracking-tight"
         >
           zzeong
         </Link>
-        {/* 링크는 반투명 흰색으로 시작 → hover 시 완전 불투명(더 밝게). */}
-        <ul className="flex items-center gap-6 text-sm text-[var(--accent-foreground)]/70">
+        {/* 네비 아이템 — {LABEL} 형태로 감싸서 편집디자인 느낌.
+            대문자 + 넓은 자간 + 작은 사이즈로 로고와 위계 구분. */}
+        <ul className="flex items-center gap-8 text-xs uppercase tracking-[0.15em] text-[var(--muted)] sm:gap-10">
           {items.map((it) => (
             <li key={it.href}>
               <Link
                 href={it.href}
-                className="transition-colors hover:text-[var(--accent-foreground)]"
+                className="transition-colors hover:text-[var(--foreground)]"
               >
-                {it.label}
+                {`{${it.label}}`}
               </Link>
             </li>
           ))}
