@@ -12,7 +12,7 @@ export default function Nav() {
   return (
     // 딥 인디고 배경 + 밝은 텍스트. 사이트 첫 인상의 색 앵커.
     <header className="bg-[var(--accent)] text-[var(--accent-foreground)]">
-      <nav className="mx-auto flex max-w-3xl items-center justify-between px-6 py-5">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
         <Link
           href="/"
           className="text-lg font-semibold tracking-tight lowercase"

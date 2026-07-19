@@ -36,7 +36,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className="min-h-screen flex flex-col">
         <Nav />
-        <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-12">
+        <main className="mx-auto w-full max-w-7xl flex-1 px-6 py-12">
           {children}
         </main>
         <Footer />

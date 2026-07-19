@@ -37,8 +37,63 @@ body {
   overflow-wrap: break-word;
 }
 
+/* 좌우명 한자 5글자 페이지 진입 시 순차 페이드 인.
+   각 글자에 style="animation-delay: ..." 로 시간차 지정.
+   translateY 16px + opacity 0 → 원위치 + 100%. cubic-bezier(0.22, 1, 0.36, 1)로 살짝 튀는 느낌. */
+@keyframes hanja-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hanja-char {
+  opacity: 0;
+  animation: hanja-fade-in 1200ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 한자·한국 serif 폰트 스택. Nanum Myeongjo / Noto Serif KR이 있으면 우선 사용,
+   없으면 시스템 serif로 폴백. 웹폰트 로드는 하지 않음(오프라인 우선). */
+.font-hanja {
+  font-family:
+    "Noto Serif KR", "Nanum Myeongjo", "Songti SC", "SimSun", ui-serif,
+    "Apple SD Gothic Neo", Georgia, serif;
+  font-feature-settings: "palt";
+}
+
+/* Reveal 컴포넌트용 스크롤 페이드 인 애니메이션.
+   초기 상태: 아래에서 살짝 작게, 투명. visible 되면 원위치 + 원래 크기 + 완전 불투명.
+   translateY 48px + scale 0.96으로 움직임을 이전보다 크게 하고,
+   duration도 1100ms로 늘려서 더 여유롭게 흐르는 느낌. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(48px) scale(0.96);
+  transition:
+    opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+[data-reveal="visible"] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+/* 접근성 — 사용자가 시스템 애니메이션 최소화 켜뒀으면 트랜지션 제거 */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .prose-basic {
   line-height: 1.75;
+  /* 본문은 항상 읽기 편한 폭으로 제한 (main 컨테이너가 넓어도).
+     한 줄 60-75자 유지가 가독성 sweet spot. */
+  max-width: 42rem;
 }
 .prose-basic h1,
 .prose-basic h2,
