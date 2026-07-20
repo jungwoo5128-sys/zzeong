@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 // 상단 네비게이션 항목. 왼쪽 로고("zzeong")는 홈으로, 오른쪽 링크는 각 섹션.
 const items = [
@@ -21,19 +22,22 @@ export default function Nav() {
         >
           zzeong
         </Link>
-        {/* 네비 아이템 — 대문자 + 넓은 자간 + 작은 사이즈로 로고와 위계 구분. */}
-        <ul className="flex items-center gap-8 text-xs uppercase tracking-[0.15em] text-[var(--muted)] sm:gap-10">
-          {items.map((it) => (
-            <li key={it.href}>
-              <Link
-                href={it.href}
-                className="transition-colors hover:text-[var(--foreground)]"
-              >
-                {it.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {/* 우측 그룹: 언어 토글 + 네비 아이템. gap으로 시각 분리. */}
+        <div className="flex items-center gap-6 sm:gap-10">
+          <LanguageSwitcher />
+          <ul className="flex items-center gap-6 text-xs uppercase tracking-[0.15em] text-[var(--muted)] sm:gap-8">
+            {items.map((it) => (
+              <li key={it.href}>
+                <Link
+                  href={it.href}
+                  className="transition-colors hover:text-[var(--foreground)]"
+                >
+                  {it.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
     </header>
   );
