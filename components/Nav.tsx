@@ -21,8 +21,7 @@ export default function Nav() {
         >
           zzeong
         </Link>
-        {/* 네비 아이템 — {LABEL} 형태로 감싸서 편집디자인 느낌.
-            대문자 + 넓은 자간 + 작은 사이즈로 로고와 위계 구분. */}
+        {/* 네비 아이템 — 대문자 + 넓은 자간 + 작은 사이즈로 로고와 위계 구분. */}
         <ul className="flex items-center gap-8 text-xs uppercase tracking-[0.15em] text-[var(--muted)] sm:gap-10">
           {items.map((it) => (
             <li key={it.href}>
@@ -30,7 +29,7 @@ export default function Nav() {
                 href={it.href}
                 className="transition-colors hover:text-[var(--foreground)]"
               >
-                {`{${it.label}}`}
+                {it.label}
               </Link>
             </li>
           ))}

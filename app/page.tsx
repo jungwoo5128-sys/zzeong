@@ -1,13 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getProjects } from "@/lib/content";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectCarousel from "@/components/ProjectCarousel";
 import Reveal from "@/components/Reveal";
+import CopyEmailButton from "@/components/CopyEmailButton";
 
-// 홈 페이지(/) — Hero + About + Education + Awards + Featured 프로젝트 카드 순서로 배치.
+// 홈 페이지(/) — Landing + About + Education + Awards + Projects 캐러셀 순서로 배치.
 export default function HomePage() {
-  // content/projects/*.mdx 중 frontmatter의 featured=true 인 것만 상위 3개 노출.
-  const featured = getProjects().filter((p) => p.featured).slice(0, 3);
+  // featured=true 프로젝트를 캐러셀에 노출. placeholder는 뒤로 정렬(실제 프로젝트 우선).
+  const featured = getProjects()
+    .filter((p) => p.featured)
+    .sort((a, b) => {
+      const aPlaceholder = a.slug.startsWith("placeholder-");
+      const bPlaceholder = b.slug.startsWith("placeholder-");
+      if (aPlaceholder !== bPlaceholder) return aPlaceholder ? 1 : -1;
+      return 0;
+    });
 
   return (
     // 이전엔 space-y-16으로 모든 섹션 간격 균일. 이제는 리듬을 위해 섹션마다
@@ -22,33 +30,6 @@ export default function HomePage() {
             - 중앙 블록(flex-1): 한자 5글자 + 구분선 + 캡션 (수직 중앙 정렬)
             - 하단 블록: 스크롤 큐 */}
       <div className="relative flex min-h-[calc(100svh-10rem)] flex-col overflow-hidden text-center">
-        {/* 코너 장식 마크 — kyne 사이트 참조. 아주 작고 흐리게, 네 모서리에.
-            aria-hidden으로 스크린리더 무시. pointer-events-none으로 클릭 방해 없음. */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute left-2 top-2 text-sm text-[var(--muted)]/50 sm:left-4 sm:top-4"
-        >
-          ✦
-        </span>
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute right-2 top-2 text-sm text-[var(--muted)]/50 sm:right-4 sm:top-4"
-        >
-          +
-        </span>
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-16 left-2 text-sm text-[var(--muted)]/50 sm:bottom-20 sm:left-4"
-        >
-          ✜
-        </span>
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-16 right-2 text-sm text-[var(--muted)]/50 sm:bottom-20 sm:right-4"
-        >
-          ⋮
-        </span>
-
         {/* 하단 웜 글로우 — 부드러운 오렌지 라디얼이 바닥에서 은은하게 배어나옴.
             width 60% / height 32% 크기, 하단 -10% 위치로 살짝 잘려서 아래로 흘러넘치는 인상.
             매우 넓게 퍼지도록 (transparent 70%까지). 정적 (모션 없음). */}
@@ -309,35 +290,124 @@ export default function HomePage() {
       </section>
       </Reveal>
 
-      {/* ────────────── Featured Projects ──────────────
-          featured 프로젝트가 하나라도 있을 때만 섹션 자체를 렌더.
-          Awards(이력) → Featured(작업)로 성격 바뀌므로 mt-24로 크게 벌림. */}
+      {/* ────────────── Projects 캐러셀 ──────────────
+          레퍼런스(Junbeom Park) 스타일 참조 — 큰 정사각 이미지 카드 하나가
+          중앙에 sharp/크게, 좌우 형제는 blur+scale로 서포팅.
+          featured=true 프로젝트만 노출. placeholder 프로젝트는 실제 프로젝트 뒤로 정렬. */}
       {featured.length > 0 && (
         <Reveal>
         <section className="mt-24">
-          <div className="mb-4 flex items-baseline justify-between">
-            <h2 className="text-sm font-medium tracking-widest text-[var(--muted)] uppercase">
-              Featured
+          {/* 섹션 헤더 — SELECTED PROJECTS 라벨 + 큰 PROJECTS 제목 + 얇은 구분선.
+              편집체 매거진 마스트헤드 느낌. */}
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+              Selected Projects
+            </p>
+            <h2 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
+              Projects
             </h2>
-            {/* "모두 보기" — /projects 목록 페이지로 이동. */}
+            <div className="mt-6 h-px w-full bg-[var(--border)]" />
+          </div>
+
+          {/* 캐러셀 — 클라이언트 컴포넌트. 뷰포트 폭 전체로 breakout. */}
+          <div className="mt-12">
+            <ProjectCarousel projects={featured} />
+          </div>
+
+          {/* 하단 CTA — 전체 프로젝트 리스트 페이지로 이동. About 섹션 CTA와 동일한 pill 스타일. */}
+          <div className="mt-12 flex justify-center">
             <Link
               href="/projects"
-              className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]"
+              className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-xs font-medium uppercase tracking-[0.2em] shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5"
             >
-              모두 보기 →
+              View all works
+              <span aria-hidden="true">→</span>
             </Link>
-          </div>
-          {/* 모바일 1열, sm(640px) 이상에서 2열 그리드.
-              홈 Featured에서는 카드가 미니멀하게 보이도록 스택 pill 숨김.
-              전체 스택은 /projects 목록·상세 페이지에서 확인 가능. */}
-          <div className="grid gap-3 sm:grid-cols-2">
-            {featured.map((p) => (
-              <ProjectCard key={p.slug} project={p} showStack={false} />
-            ))}
           </div>
         </section>
         </Reveal>
       )}
+
+      {/* ────────────── Contact ──────────────
+          홈 페이지의 마지막 섹션 — 방문자가 스크롤 여정 끝에서 만나는 CTA.
+          레퍼런스(Junbeom Park) 스타일:
+          - 좌측: CONTACT 라벨 + 큰 한글 헤딩 + 짧은 설명
+          - 우측: 2개 카드 (Direct Inquiry + Elsewhere) */}
+      <Reveal>
+      <section className="mt-24">
+        <div className="grid gap-10 lg:grid-cols-[1fr_560px] lg:items-start lg:gap-20">
+          {/* ── 좌측: 섹션 헤더 + 설명 ── */}
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+              Contact
+            </p>
+            {/* 한글 세리프로 매거진 헤드라인 톤 */}
+            <h2 className="mt-6 font-hanja text-3xl font-medium leading-[1.25] tracking-tight sm:text-4xl">
+              새로운 협업을
+              <br />
+              기다리고 있습니다.
+            </h2>
+            <div className="mt-8 max-w-md space-y-4 leading-[1.85] text-[var(--foreground)]/75">
+              <p>
+                홈페이지 제작 외주, 프로덕트 파트너십 등 다양한 형태의 협업을
+                환영합니다.
+              </p>
+              <p>아래 채널로 자유롭게 연락 주세요.</p>
+            </div>
+          </div>
+
+          {/* ── 우측: 2개 카드 나란히 (모바일은 스택) ── */}
+          <div className="grid gap-4 sm:grid-cols-2">
+            {/* Card 1: Direct Inquiry — 이메일 + Copy 버튼 */}
+            <div className="flex flex-col rounded-2xl bg-white p-6 shadow-lg">
+              <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+                Direct Inquiry
+              </p>
+              <p className="mt-4 break-all font-bold text-[var(--foreground)]">
+                jungwoo5128@gmail.com
+              </p>
+              <p className="mt-1 text-sm text-[var(--muted)]">
+                Jeongwoo Choe / 최정우
+              </p>
+              {/* flex-1로 위 컨텐츠와 버튼 사이 자동 spacer — 카드 높이 어긋나도 버튼은 하단 정렬 */}
+              <div className="mt-8 flex-1" />
+              <div className="border-t border-[var(--border)] pt-5">
+                <CopyEmailButton email="jungwoo5128@gmail.com" />
+              </div>
+            </div>
+
+            {/* Card 2: Elsewhere — 다른 채널 링크 */}
+            <div className="flex flex-col rounded-2xl bg-white p-6 shadow-lg">
+              <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+                Elsewhere
+              </p>
+              <p className="mt-4 text-sm text-[var(--foreground)]/80">
+                다른 채널에서도 만날 수 있어요.
+              </p>
+              {/* 링크 리스트 — 각 항목은 호버 시 액센트 컬러 + 화살표 이동 */}
+              <ul className="mt-6 space-y-3 text-sm">
+                <li>
+                  <a
+                    href="https://github.com/jungwoo5128-sys"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between border-b border-[var(--border)] py-2 transition-colors hover:text-[var(--accent)]"
+                  >
+                    <span>GitHub</span>
+                    <span
+                      aria-hidden="true"
+                      className="transition-transform group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      </Reveal>
     </div>
   );
 }

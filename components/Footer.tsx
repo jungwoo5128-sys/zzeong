@@ -1,6 +1,5 @@
 const links = [
-  { href: "https://github.com/", label: "GitHub" },
-  { href: "https://blog.naver.com/", label: "Naver Blog" },
+  { href: "https://github.com/jungwoo5128-sys", label: "GitHub" },
   { href: "mailto:jungwoo5128@gmail.com", label: "Email" },
 ];
 
