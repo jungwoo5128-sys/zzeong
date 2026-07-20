@@ -48,16 +48,3 @@ export type AwardFrontmatter = {
 export type Award = AwardFrontmatter & {
   body: string;
 };
-
-export type PostFrontmatter = {
-  title: string;
-  slug: string;
-  lang: Lang;
-  date: string;
-  summary: string;
-  tags: string[];
-};
-
-export type Post = PostFrontmatter & {
-  body: string;
-};
