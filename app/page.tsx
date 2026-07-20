@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getProjects } from "@/lib/content";
+import { getAward, getProjects } from "@/lib/content";
 import ProjectCarousel from "@/components/ProjectCarousel";
 import Reveal from "@/components/Reveal";
 import CopyEmailButton from "@/components/CopyEmailButton";
+import AwardModal from "@/components/AwardModal";
 
 // 홈 페이지(/) — Landing + About + Education + Awards + Projects 캐러셀 순서로 배치.
 export default function HomePage() {
@@ -16,6 +17,12 @@ export default function HomePage() {
       if (aPlaceholder !== bPlaceholder) return aPlaceholder ? 1 : -1;
       return 0;
     });
+
+  // 상세 콘텐츠(MDX)가 있는 수상만 모달 활성화. 없으면 정적 텍스트 유지.
+  const upstageAward = getAward("upstage-mailman");
+  const bell1stAward = getAward("bell-1st-ideathon");
+  const bell2ndAward = getAward("bell-2nd-ideathon");
+  const blackbox31Award = getAward("blackbox-31-demoday");
 
   return (
     // 이전엔 space-y-16으로 모든 섹션 간격 균일. 이제는 리듬을 위해 섹션마다
@@ -249,9 +256,17 @@ export default function HomePage() {
               </span>
             </summary>
             <ul className="pb-3">
+              {/* Upstage 수상 — 상세 콘텐츠(MDX) 있으면 AwardModal로 감싸서 클릭 가능.
+                  없으면 정적 텍스트로 폴백. */}
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">최우수상</span>
-                <span>Upstage 주관 Low-code AI Startup Hackathon</span>
+                {upstageAward ? (
+                  <AwardModal award={upstageAward}>
+                    <span>Upstage 주관 Low-code AI Startup Hackathon</span>
+                  </AwardModal>
+                ) : (
+                  <span>Upstage 주관 Low-code AI Startup Hackathon</span>
+                )}
               </li>
             </ul>
           </details>
@@ -270,15 +285,33 @@ export default function HomePage() {
             <ul className="pb-3">
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">대상</span>
-                <span>서강대학교 제1회 아이디어톤 BELL</span>
+                {bell1stAward ? (
+                  <AwardModal award={bell1stAward}>
+                    <span>서강대학교 제1회 아이디어톤 BELL</span>
+                  </AwardModal>
+                ) : (
+                  <span>서강대학교 제1회 아이디어톤 BELL</span>
+                )}
               </li>
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">1등</span>
-                <span>서강대학교 창업동아리 Blackbox 31기 데모데이</span>
+                {blackbox31Award ? (
+                  <AwardModal award={blackbox31Award}>
+                    <span>서강대학교 창업동아리 Blackbox 31기 데모데이</span>
+                  </AwardModal>
+                ) : (
+                  <span>서강대학교 창업동아리 Blackbox 31기 데모데이</span>
+                )}
               </li>
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">우수상</span>
-                <span>서강대학교 제2회 아이디어톤 BELL</span>
+                {bell2ndAward ? (
+                  <AwardModal award={bell2ndAward}>
+                    <span>서강대학교 제2회 아이디어톤 BELL</span>
+                  </AwardModal>
+                ) : (
+                  <span>서강대학교 제2회 아이디어톤 BELL</span>
+                )}
               </li>
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">우수상</span>
@@ -373,6 +406,19 @@ export default function HomePage() {
               <div className="mt-8 flex-1" />
               <div className="border-t border-[var(--border)] pt-5">
                 <CopyEmailButton email="jungwoo5128@gmail.com" />
+              </div>
+              {/* 모바일 번호 — 이메일이 어려운 경우 대비.
+                  tel: 링크로 걸어 모바일 브라우저에서 탭 시 전화 앱 실행. */}
+              <div className="mt-5">
+                <p className="text-xs uppercase tracking-[0.3em] text-[var(--muted)]">
+                  Mobile
+                </p>
+                <a
+                  href="tel:+821059365128"
+                  className="mt-1 block font-medium text-[var(--foreground)] transition-colors hover:text-[var(--accent)]"
+                >
+                  010-5936-5128
+                </a>
               </div>
             </div>
 
