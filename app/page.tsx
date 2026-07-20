@@ -176,7 +176,7 @@ export default function HomePage() {
                 Vibe coding
               </li>
               <li className="rounded-full border border-[var(--border)] px-2.5 py-1 text-xs text-[var(--muted)]">
-                AI workflow
+                AI 업무 자동화
               </li>
             </ul>
           </div>
