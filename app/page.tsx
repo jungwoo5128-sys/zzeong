@@ -387,6 +387,25 @@ export default function HomePage() {
               </p>
               <p>아래 채널로 자유롭게 연락 주세요.</p>
             </div>
+            {/* 홈페이지 제작 외주 문의 폼 CTA — Tally.so 폼 새 탭 오픈.
+                아래 카드(직접 연락) 대비 부수적인 진입점. 학생 프리랜서로서 외주는
+                아직 부가 활동이라 이메일 카드보다 시각적 위계 낮게. */}
+            <a
+              href="https://tally.so/r/RG6PE9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-6 inline-flex items-center gap-2 text-sm text-[var(--muted)] transition-colors hover:text-[var(--accent)]"
+            >
+              <span className="underline underline-offset-4">
+                홈페이지 제작 문의 폼 열기
+              </span>
+              <span
+                aria-hidden="true"
+                className="transition-transform group-hover:translate-x-0.5"
+              >
+                →
+              </span>
+            </a>
           </div>
 
           {/* ── 우측: 2개 카드 나란히 (모바일은 스택) ── */}

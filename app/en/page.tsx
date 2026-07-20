@@ -319,6 +319,22 @@ export default function EnglishHomePage() {
               </p>
               <p>Feel free to reach out through the channels below.</p>
             </div>
+            <a
+              href="https://tally.so/r/RG6PE9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-6 inline-flex items-center gap-2 text-sm text-[var(--muted)] transition-colors hover:text-[var(--accent)]"
+            >
+              <span className="underline underline-offset-4">
+                Open the website inquiry form
+              </span>
+              <span
+                aria-hidden="true"
+                className="transition-transform group-hover:translate-x-0.5"
+              >
+                →
+              </span>
+            </a>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
