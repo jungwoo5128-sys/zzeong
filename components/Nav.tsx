@@ -13,18 +13,20 @@ export default function Nav() {
     // 무색 배경 + 어두운 텍스트. kyne 사이트 참조 → 미니멀·에디토리얼 방향.
     // 색 배경 대신 컨텐츠 배경(#fafafa) 그대로 사용, 아래 얇은 구분선만.
     <header className="border-b border-[var(--border)] bg-[var(--background)]">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-        {/* 로고 — 이탤릭 세리프로 감각적인 매거진 마스트헤드 톤 */}
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 sm:px-6">
+        {/* 로고 — Pretendard 볼드 sans로 딱딱하고 공식적인 톤.
+            (랜딩의 이탤릭 세리프와 대비되며 헤더가 브랜드 앵커 역할)
+            모바일에선 "Jeongwoo"만 노출(공간 절약), sm↑에선 "Jeongwoo Choe."로 완결. */}
         <Link
           href="/"
-          className="font-serif text-xl italic tracking-tight"
+          className="shrink-0 font-pretendard text-base font-bold tracking-tight sm:text-lg"
         >
-          zzeong
+          Jeongwoo<span className="hidden sm:inline"> Choe.</span>
         </Link>
-        {/* 우측 그룹: 언어 토글 + 네비 아이템. gap으로 시각 분리. */}
-        <div className="flex items-center gap-6 sm:gap-10">
+        {/* 우측 그룹: 언어 토글 + 네비 아이템. 모바일에선 gap 최소, sm↑에서 넉넉히. */}
+        <div className="flex items-center gap-3 sm:gap-10">
           <LanguageSwitcher />
-          <ul className="flex items-center gap-6 text-xs uppercase tracking-[0.15em] text-[var(--muted)] sm:gap-8">
+          <ul className="flex items-center gap-3 text-xs uppercase tracking-[0.15em] text-[var(--muted)] sm:gap-8">
             {items.map((it) => (
               <li key={it.href}>
                 <Link
