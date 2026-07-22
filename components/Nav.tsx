@@ -1,7 +1,7 @@
 import Link from "next/link";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
-// 상단 네비게이션 항목. 왼쪽 로고("zzeong")는 홈으로, 오른쪽 링크는 각 섹션.
+// 상단 네비게이션 항목. 왼쪽 로고(Jeongwoo Choe.)는 홈으로, 오른쪽 링크는 각 섹션.
 const items = [
   { href: "/projects", label: "Projects" },
   { href: "/timeline", label: "Timeline" },
