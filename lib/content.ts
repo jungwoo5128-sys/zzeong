@@ -30,6 +30,10 @@ export function getProjects(): Project[] {
   });
   return items.sort((a, b) => {
     if (a.featured !== b.featured) return a.featured ? -1 : 1;
+    // order 명시된 것 우선(작은 값이 앞), 없는 건 뒤로. 마지막 tiebreaker 는 제목.
+    const ao = a.order ?? Number.POSITIVE_INFINITY;
+    const bo = b.order ?? Number.POSITIVE_INFINITY;
+    if (ao !== bo) return ao - bo;
     return a.title.localeCompare(b.title);
   });
 }

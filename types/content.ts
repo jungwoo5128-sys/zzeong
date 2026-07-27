@@ -19,6 +19,9 @@ export type ProjectFrontmatter = {
   image?: string;
   // 카드 이미지 오버레이에 노출할 짧은 카테고리 라벨 (예: "iOS · Android", "COMING SOON").
   tag?: string;
+  // 프로젝트 노출 순서. 낮은 값이 앞. 명시 안 하면 뒤로 밀림.
+  // (알파벳순이 아닌 실제 만든 순서로 배치하기 위해 사용)
+  order?: number;
 };
 
 export type Project = ProjectFrontmatter & {
