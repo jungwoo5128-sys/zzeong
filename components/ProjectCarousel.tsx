@@ -54,27 +54,35 @@ export default function ProjectCarousel({
   }, [prev, next]);
 
   // 포인터 드래그 핸들러들 — pointer 이벤트로 마우스·터치·펜 모두 커버.
+  // ⚠️ setPointerCapture 를 pointerdown 에서 바로 부르면 안 됨:
+  // 캡처된 요소로 뒤이은 compat mouse click 이벤트가 재-dispatch 되기 때문에
+  // 자식 <Link> 의 클릭이 안 먹혀서 상세 페이지 이동이 막힘.
+  // → 이동량이 임계값을 넘어 "진짜 드래그"로 확정될 때만 캡처.
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     dragStartX.current = e.clientX;
     draggedRef.current = false;
-    setDragOffset(0);
-    // 포인터 캡처 — 손가락/커서가 트랙 밖으로 나가도 move/up 계속 수신.
-    e.currentTarget.setPointerCapture(e.pointerId);
+    // dragOffset 은 드래그 확정 시점부터 업데이트 (아직 0 유지).
   };
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (dragStartX.current === null) return;
     const dx = e.clientX - dragStartX.current;
-    if (Math.abs(dx) > DRAG_CLICK_TOLERANCE_PX) draggedRef.current = true;
-    setDragOffset(dx);
+    // 임계값 처음 넘는 순간 드래그 확정 → 캡처 시작. 이후 손가락이 밖으로 나가도 계속 추적.
+    if (!draggedRef.current && Math.abs(dx) > DRAG_CLICK_TOLERANCE_PX) {
+      draggedRef.current = true;
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
+    if (draggedRef.current) setDragOffset(dx);
   };
   const onPointerUp = () => {
     if (dragStartX.current === null) return;
     const dx = dragOffset;
     dragStartX.current = null;
-    // 임계값 넘으면 방향에 맞게 이동. 오른쪽으로 밀면 이전 슬라이드.
-    if (dx > DRAG_SNAP_PX) prev();
-    else if (dx < -DRAG_SNAP_PX) next();
-    setDragOffset(0);
+    // 실제 드래그가 발생했을 때만 스냅 판단. 순수 클릭은 그대로 통과시켜 Link 이동 허용.
+    if (draggedRef.current) {
+      if (dx > DRAG_SNAP_PX) prev();
+      else if (dx < -DRAG_SNAP_PX) next();
+      setDragOffset(0);
+    }
   };
 
   // 드래그 직후의 click 이벤트를 삼켜서 Link 네비게이션 방지.
