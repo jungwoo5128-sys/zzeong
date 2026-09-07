@@ -136,8 +136,16 @@ export default function HomePage() {
               실제 프로덕트로 옮기는 과정을 좋아합니다.
             </p>
             <p>
-              지금은 서강대학교에서 Blackbox라는 창업동아리를 운영하고 있습니다.
-              
+              지금은 서강대학교에서{" "}
+              <a
+                href="https://sgublackbox.co.kr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-4"
+              >
+                Blackbox
+              </a>
+              라는 창업동아리를 운영하고 있습니다.
             </p>
           </div>
           {/* CTA 버튼 — pill 형태, 흰 배경 + 부드러운 그림자.

@@ -101,8 +101,16 @@ export default function EnglishHomePage() {
               I notice in everyday life into products that actually work.
             </p>
             <p>
-              I currently lead <span className="whitespace-nowrap">Blackbox</span>,
-              a student-run startup club at Sogang University. I’m also open
+              I currently lead{" "}
+              <a
+                href="https://sgublackbox.co.kr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="whitespace-nowrap underline underline-offset-4"
+              >
+                Blackbox
+              </a>
+              , a student-run startup club at Sogang University. I’m also open
               to freelance website work.
             </p>
           </div>
