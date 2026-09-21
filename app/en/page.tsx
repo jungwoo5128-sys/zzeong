@@ -26,6 +26,7 @@ export default function EnglishHomePage() {
   const bell1stAward = getAward("bell-1st-ideathon");
   const bell2ndAward = getAward("bell-2nd-ideathon");
   const blackbox31Award = getAward("blackbox-31-demoday");
+  const estsoftEvSignalAward = getAward("estsoft-ev-signal");
 
   return (
     <div>
@@ -203,7 +204,7 @@ export default function EnglishHomePage() {
             <summary className="flex cursor-pointer list-none items-center justify-between py-3 [&::-webkit-details-marker]:hidden">
               <div className="flex items-baseline gap-3">
                 <span className="text-sm font-medium">2026</span>
-                <span className="text-xs text-[var(--muted)]">1 entry</span>
+                <span className="text-xs text-[var(--muted)]">2 entries</span>
               </div>
               <span className="text-xs text-[var(--muted)] transition-transform group-open:rotate-90">
                 ▶
@@ -218,6 +219,16 @@ export default function EnglishHomePage() {
                   </AwardModal>
                 ) : (
                   <span>Upstage Low-code AI Startup Hackathon</span>
+                )}
+              </li>
+              <li className="grid grid-cols-[7rem_1fr] gap-4 py-2 text-sm">
+                <span className="text-[var(--muted)]">Encouragement</span>
+                {estsoftEvSignalAward ? (
+                  <AwardModal award={estsoftEvSignalAward}>
+                    <span>ESTsoft AI Challengers Hackathon</span>
+                  </AwardModal>
+                ) : (
+                  <span>ESTsoft AI Challengers Hackathon</span>
                 )}
               </li>
             </ul>

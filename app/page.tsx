@@ -23,6 +23,7 @@ export default function HomePage() {
   const bell1stAward = getAward("bell-1st-ideathon");
   const bell2ndAward = getAward("bell-2nd-ideathon");
   const blackbox31Award = getAward("blackbox-31-demoday");
+  const estsoftEvSignalAward = getAward("estsoft-ev-signal");
 
   return (
     // 이전엔 space-y-16으로 모든 섹션 간격 균일. 이제는 리듬을 위해 섹션마다
@@ -256,7 +257,7 @@ export default function HomePage() {
             <summary className="flex cursor-pointer list-none items-center justify-between py-3 [&::-webkit-details-marker]:hidden">
               <div className="flex items-baseline gap-3">
                 <span className="text-sm font-medium">2026</span>
-                <span className="text-xs text-[var(--muted)]">1건</span>
+                <span className="text-xs text-[var(--muted)]">2건</span>
               </div>
               {/* 열림 상태(group-open)면 90도 회전 → 아래를 가리키게 됨 */}
               <span className="text-xs text-[var(--muted)] transition-transform group-open:rotate-90">
@@ -274,6 +275,16 @@ export default function HomePage() {
                   </AwardModal>
                 ) : (
                   <span>Upstage 주관 Low-code AI Startup Hackathon</span>
+                )}
+              </li>
+              <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
+                <span className="text-[var(--muted)]">장려상</span>
+                {estsoftEvSignalAward ? (
+                  <AwardModal award={estsoftEvSignalAward}>
+                    <span>이스트소프트 주관 EST AI Challengers Hackathon</span>
+                  </AwardModal>
+                ) : (
+                  <span>이스트소프트 주관 EST AI Challengers Hackathon</span>
                 )}
               </li>
             </ul>
