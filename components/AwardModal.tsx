@@ -12,9 +12,11 @@ type Props = {
   award: Award;
   // 트리거로 쓸 요소(예: 리스트 항목 텍스트). 클릭 시 모달 오픈.
   children: ReactNode;
+  // 서버에서 컴파일한 본문 MDX (AwardModalMdx 가 넘겨줌).
+  content: ReactNode;
 };
 
-export default function AwardModal({ award, children }: Props) {
+export default function AwardModal({ award, children, content }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const open = () => dialogRef.current?.showModal();
@@ -164,10 +166,9 @@ export default function AwardModal({ award, children }: Props) {
               </div>
             )}
 
-            {/* 본문 — MDX 렌더가 아니라 여기선 클라이언트 컴포넌트라 순수 문자열로 처리.
-                간단한 마크다운 형태를 유지하기 위해 프리라인 처리 (개행 유지). */}
-            <div className="prose-basic mt-8 whitespace-pre-line text-[var(--foreground)]/85">
-              {award.body}
+            {/* 본문 — 서버에서 컴파일된 MDX. 첫 제목 위 여백은 헤더와 겹치지 않게 제거. */}
+            <div className="prose-basic mt-8 text-[var(--foreground)]/85 [&>h2:first-child]:mt-0">
+              {content}
             </div>
 
             {/* 하단 CTA — 피치덱 PDF 보기·다운로드 + 서비스 사이트(있으면). pill 스타일 */}

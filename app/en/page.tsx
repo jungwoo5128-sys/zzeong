@@ -9,7 +9,7 @@ import { getAward, getProjects } from "@/lib/content";
 import ProjectCarousel from "@/components/ProjectCarousel";
 import Reveal from "@/components/Reveal";
 import CopyEmailButton from "@/components/CopyEmailButton";
-import AwardModal from "@/components/AwardModal";
+import AwardModalMdx from "@/components/AwardModalMdx";
 
 export default function EnglishHomePage() {
   const featured = getProjects()
@@ -28,6 +28,7 @@ export default function EnglishHomePage() {
   const blackbox31Award = getAward("blackbox-31-demoday");
   const estsoftEvSignalAward = getAward("estsoft-ev-signal");
   const roombapAward = getAward("sogang-ai-launchpad-roombap");
+  const camp2025Award = getAward("sogang-2025-startup-camp");
 
   return (
     <div>
@@ -215,9 +216,9 @@ export default function EnglishHomePage() {
               <li className="grid grid-cols-[7rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">Grand Prize</span>
                 {upstageAward ? (
-                  <AwardModal award={upstageAward}>
+                  <AwardModalMdx award={upstageAward}>
                     <span>Upstage Low-code AI Startup Hackathon</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>Upstage Low-code AI Startup Hackathon</span>
                 )}
@@ -225,9 +226,9 @@ export default function EnglishHomePage() {
               <li className="grid grid-cols-[7rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">Encouragement</span>
                 {estsoftEvSignalAward ? (
-                  <AwardModal award={estsoftEvSignalAward}>
+                  <AwardModalMdx award={estsoftEvSignalAward}>
                     <span>ESTsoft AI Challengers Hackathon</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>ESTsoft AI Challengers Hackathon</span>
                 )}
@@ -235,9 +236,9 @@ export default function EnglishHomePage() {
               <li className="grid grid-cols-[7rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">Excellence</span>
                 {roombapAward ? (
-                  <AwardModal award={roombapAward}>
+                  <AwardModalMdx award={roombapAward}>
                     <span>Sogang AI Launchpad Startup Camp</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>Sogang AI Launchpad Startup Camp</span>
                 )}
@@ -259,9 +260,9 @@ export default function EnglishHomePage() {
               <li className="grid grid-cols-[7rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">Gold Prize</span>
                 {bell1stAward ? (
-                  <AwardModal award={bell1stAward}>
+                  <AwardModalMdx award={bell1stAward}>
                     <span>Sogang University BELL Ideathon (1st)</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>Sogang University BELL Ideathon (1st)</span>
                 )}
@@ -269,9 +270,9 @@ export default function EnglishHomePage() {
               <li className="grid grid-cols-[7rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">1st Place</span>
                 {blackbox31Award ? (
-                  <AwardModal award={blackbox31Award}>
+                  <AwardModalMdx award={blackbox31Award}>
                     <span>Blackbox 31st Cohort Demo Day</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>Blackbox 31st Cohort Demo Day</span>
                 )}
@@ -279,16 +280,22 @@ export default function EnglishHomePage() {
               <li className="grid grid-cols-[7rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">Excellence</span>
                 {bell2ndAward ? (
-                  <AwardModal award={bell2ndAward}>
+                  <AwardModalMdx award={bell2ndAward}>
                     <span>Sogang University BELL Ideathon (2nd)</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>Sogang University BELL Ideathon (2nd)</span>
                 )}
               </li>
               <li className="grid grid-cols-[7rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">Excellence</span>
-                <span>Sogang 2025 Startup Camp</span>
+                {camp2025Award ? (
+                  <AwardModalMdx award={camp2025Award}>
+                    <span>Sogang 2025 Startup Camp</span>
+                  </AwardModalMdx>
+                ) : (
+                  <span>Sogang 2025 Startup Camp</span>
+                )}
               </li>
             </ul>
           </details>

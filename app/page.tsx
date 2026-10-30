@@ -4,7 +4,7 @@ import { getAward, getProjects } from "@/lib/content";
 import ProjectCarousel from "@/components/ProjectCarousel";
 import Reveal from "@/components/Reveal";
 import CopyEmailButton from "@/components/CopyEmailButton";
-import AwardModal from "@/components/AwardModal";
+import AwardModalMdx from "@/components/AwardModalMdx";
 
 // 홈 페이지(/) — Landing + About + Education + Awards + Projects 캐러셀 순서로 배치.
 export default function HomePage() {
@@ -25,6 +25,7 @@ export default function HomePage() {
   const blackbox31Award = getAward("blackbox-31-demoday");
   const estsoftEvSignalAward = getAward("estsoft-ev-signal");
   const roombapAward = getAward("sogang-ai-launchpad-roombap");
+  const camp2025Award = getAward("sogang-2025-startup-camp");
 
   return (
     // 이전엔 space-y-16으로 모든 섹션 간격 균일. 이제는 리듬을 위해 섹션마다
@@ -271,9 +272,9 @@ export default function HomePage() {
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">최우수상</span>
                 {upstageAward ? (
-                  <AwardModal award={upstageAward}>
+                  <AwardModalMdx award={upstageAward}>
                     <span>Upstage 주관 Low-code AI Startup Hackathon</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>Upstage 주관 Low-code AI Startup Hackathon</span>
                 )}
@@ -281,9 +282,9 @@ export default function HomePage() {
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">장려상</span>
                 {estsoftEvSignalAward ? (
-                  <AwardModal award={estsoftEvSignalAward}>
+                  <AwardModalMdx award={estsoftEvSignalAward}>
                     <span>이스트소프트 주관 EST AI Challengers Hackathon</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>이스트소프트 주관 EST AI Challengers Hackathon</span>
                 )}
@@ -291,9 +292,9 @@ export default function HomePage() {
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">우수상</span>
                 {roombapAward ? (
-                  <AwardModal award={roombapAward}>
+                  <AwardModalMdx award={roombapAward}>
                     <span>서강대학교 SOGANG AI LAUNCHPAD AI 창업캠프</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>서강대학교 SOGANG AI LAUNCHPAD AI 창업캠프</span>
                 )}
@@ -316,9 +317,9 @@ export default function HomePage() {
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">대상</span>
                 {bell1stAward ? (
-                  <AwardModal award={bell1stAward}>
+                  <AwardModalMdx award={bell1stAward}>
                     <span>서강대학교 제1회 아이디어톤 BELL</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>서강대학교 제1회 아이디어톤 BELL</span>
                 )}
@@ -326,9 +327,9 @@ export default function HomePage() {
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">1등</span>
                 {blackbox31Award ? (
-                  <AwardModal award={blackbox31Award}>
+                  <AwardModalMdx award={blackbox31Award}>
                     <span>서강대학교 창업동아리 Blackbox 31기 데모데이</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>서강대학교 창업동아리 Blackbox 31기 데모데이</span>
                 )}
@@ -336,16 +337,22 @@ export default function HomePage() {
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">우수상</span>
                 {bell2ndAward ? (
-                  <AwardModal award={bell2ndAward}>
+                  <AwardModalMdx award={bell2ndAward}>
                     <span>서강대학교 제2회 아이디어톤 BELL</span>
-                  </AwardModal>
+                  </AwardModalMdx>
                 ) : (
                   <span>서강대학교 제2회 아이디어톤 BELL</span>
                 )}
               </li>
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">우수상</span>
-                <span>서강대학교 2025 창업캠프</span>
+                {camp2025Award ? (
+                  <AwardModalMdx award={camp2025Award}>
+                    <span>서강대학교 2025 창업캠프</span>
+                  </AwardModalMdx>
+                ) : (
+                  <span>서강대학교 2025 창업캠프</span>
+                )}
               </li>
             </ul>
           </details>
