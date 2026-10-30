@@ -61,11 +61,12 @@ export default function AwardModal({ award, children }: Props) {
         </span>
       </button>
 
-      {/* 모달 자체 — <dialog>는 브라우저가 최상단 layer로 자동 승격 */}
+      {/* 모달 자체 — <dialog>는 브라우저가 최상단 layer로 자동 승격.
+          m-auto 필수: Tailwind preflight 가 margin 을 0 으로 지워서 없으면 왼쪽 위에 붙음. */}
       <dialog
         ref={dialogRef}
         onClick={handleBackdropClick}
-        className="max-h-[90vh] w-[min(720px,95vw)] rounded-2xl bg-[var(--background)] p-0 backdrop:bg-black/50 backdrop:backdrop-blur-sm"
+        className="m-auto max-h-[90vh] w-[min(720px,95vw)] rounded-2xl bg-[var(--background)] p-0 backdrop:bg-black/50 backdrop:backdrop-blur-sm"
       >
         {/* 스크롤 컨테이너 — 모달 자체는 고정, 내부만 스크롤 */}
         <div className="max-h-[90vh] overflow-y-auto">
