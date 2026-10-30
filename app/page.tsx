@@ -257,7 +257,7 @@ export default function HomePage() {
             <summary className="flex cursor-pointer list-none items-center justify-between py-3 [&::-webkit-details-marker]:hidden">
               <div className="flex items-baseline gap-3">
                 <span className="text-sm font-medium">2026</span>
-                <span className="text-xs text-[var(--muted)]">2건</span>
+                <span className="text-xs text-[var(--muted)]">3건</span>
               </div>
               {/* 열림 상태(group-open)면 90도 회전 → 아래를 가리키게 됨 */}
               <span className="text-xs text-[var(--muted)] transition-transform group-open:rotate-90">
@@ -286,6 +286,11 @@ export default function HomePage() {
                 ) : (
                   <span>이스트소프트 주관 EST AI Challengers Hackathon</span>
                 )}
+              </li>
+              {/* 상세 MDX 없음 — 상장·프로덕트 정보 생기면 AwardModal 로 교체 */}
+              <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
+                <span className="text-[var(--muted)]">우수상</span>
+                <span>서강대학교 SOGANG AI LAUNCHPAD AI 창업캠프</span>
               </li>
             </ul>
           </details>

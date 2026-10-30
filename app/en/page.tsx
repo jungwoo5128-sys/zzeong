@@ -204,7 +204,7 @@ export default function EnglishHomePage() {
             <summary className="flex cursor-pointer list-none items-center justify-between py-3 [&::-webkit-details-marker]:hidden">
               <div className="flex items-baseline gap-3">
                 <span className="text-sm font-medium">2026</span>
-                <span className="text-xs text-[var(--muted)]">2 entries</span>
+                <span className="text-xs text-[var(--muted)]">3 entries</span>
               </div>
               <span className="text-xs text-[var(--muted)] transition-transform group-open:rotate-90">
                 ▶
@@ -230,6 +230,10 @@ export default function EnglishHomePage() {
                 ) : (
                   <span>ESTsoft AI Challengers Hackathon</span>
                 )}
+              </li>
+              <li className="grid grid-cols-[7rem_1fr] gap-4 py-2 text-sm">
+                <span className="text-[var(--muted)]">Excellence</span>
+                <span>Sogang AI Launchpad Startup Camp</span>
               </li>
             </ul>
           </details>
