@@ -169,26 +169,41 @@ export default function AwardModal({ award, children }: Props) {
               {award.body}
             </div>
 
-            {/* PDF 다운로드 CTA — pill 스타일, 하단 정렬 */}
-            {award.pdf && (
+            {/* 하단 CTA — 피치덱 PDF 보기·다운로드 + 서비스 사이트(있으면). pill 스타일 */}
+            {(award.pdf || award.site) && (
               <div className="mt-10 flex flex-wrap gap-3">
-                <a
-                  href={award.pdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[var(--foreground)] px-5 py-2.5 text-xs font-medium uppercase tracking-[0.15em] text-[var(--background)] transition-opacity hover:opacity-90"
-                >
-                  View Pitch Deck
-                  <span aria-hidden="true">↗</span>
-                </a>
-                <a
-                  href={award.pdf}
-                  download
-                  className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-5 py-2.5 text-xs font-medium uppercase tracking-[0.15em] transition-colors hover:border-[var(--foreground)]"
-                >
-                  Download PDF
-                  <span aria-hidden="true">↓</span>
-                </a>
+                {award.pdf && (
+                  <>
+                    <a
+                      href={award.pdf}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full bg-[var(--foreground)] px-5 py-2.5 text-xs font-medium uppercase tracking-[0.15em] text-[var(--background)] transition-opacity hover:opacity-90"
+                    >
+                      View Pitch Deck
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                    <a
+                      href={award.pdf}
+                      download
+                      className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-5 py-2.5 text-xs font-medium uppercase tracking-[0.15em] transition-colors hover:border-[var(--foreground)]"
+                    >
+                      Download PDF
+                      <span aria-hidden="true">↓</span>
+                    </a>
+                  </>
+                )}
+                {award.site && (
+                  <a
+                    href={award.site}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-white px-5 py-2.5 text-xs font-medium uppercase tracking-[0.15em] transition-colors hover:border-[var(--foreground)]"
+                  >
+                    Visit Site
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                )}
               </div>
             )}
           </div>

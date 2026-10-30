@@ -46,6 +46,7 @@ export type AwardFrontmatter = {
   photos?: string[];     // 추가 사진 경로들
   certificateImage?: string; // 상장 이미지 (PNG 등, 모달에 크게 노출)
   certificatePdf?: string;   // 상장 원본 PDF (다운로드용, 선택)
+  site?: string;             // 수상작 서비스 사이트 URL (모달 하단 Visit Site 버튼)
 };
 
 export type Award = AwardFrontmatter & {

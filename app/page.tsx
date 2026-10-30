@@ -24,6 +24,7 @@ export default function HomePage() {
   const bell2ndAward = getAward("bell-2nd-ideathon");
   const blackbox31Award = getAward("blackbox-31-demoday");
   const estsoftEvSignalAward = getAward("estsoft-ev-signal");
+  const roombapAward = getAward("sogang-ai-launchpad-roombap");
 
   return (
     // 이전엔 space-y-16으로 모든 섹션 간격 균일. 이제는 리듬을 위해 섹션마다
@@ -287,10 +288,15 @@ export default function HomePage() {
                   <span>이스트소프트 주관 EST AI Challengers Hackathon</span>
                 )}
               </li>
-              {/* 상세 MDX 없음 — 상장·프로덕트 정보 생기면 AwardModal 로 교체 */}
               <li className="grid grid-cols-[5.5rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">우수상</span>
-                <span>서강대학교 SOGANG AI LAUNCHPAD AI 창업캠프</span>
+                {roombapAward ? (
+                  <AwardModal award={roombapAward}>
+                    <span>서강대학교 SOGANG AI LAUNCHPAD AI 창업캠프</span>
+                  </AwardModal>
+                ) : (
+                  <span>서강대학교 SOGANG AI LAUNCHPAD AI 창업캠프</span>
+                )}
               </li>
             </ul>
           </details>

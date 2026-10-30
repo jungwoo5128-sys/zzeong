@@ -27,6 +27,7 @@ export default function EnglishHomePage() {
   const bell2ndAward = getAward("bell-2nd-ideathon");
   const blackbox31Award = getAward("blackbox-31-demoday");
   const estsoftEvSignalAward = getAward("estsoft-ev-signal");
+  const roombapAward = getAward("sogang-ai-launchpad-roombap");
 
   return (
     <div>
@@ -233,7 +234,13 @@ export default function EnglishHomePage() {
               </li>
               <li className="grid grid-cols-[7rem_1fr] gap-4 py-2 text-sm">
                 <span className="text-[var(--muted)]">Excellence</span>
-                <span>Sogang AI Launchpad Startup Camp</span>
+                {roombapAward ? (
+                  <AwardModal award={roombapAward}>
+                    <span>Sogang AI Launchpad Startup Camp</span>
+                  </AwardModal>
+                ) : (
+                  <span>Sogang AI Launchpad Startup Camp</span>
+                )}
               </li>
             </ul>
           </details>
