@@ -9,7 +9,8 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import type { Project } from "@/types/content";
+import { langPrefix, projectStrings } from "@/lib/i18n";
+import type { Lang, Project } from "@/types/content";
 
 // 슬라이드 사이즈 상수 — px 단위. 데스크톱 기준. (모바일에선 컨테이너 폭에 의해 자연 크롭)
 const SLIDE_W = 440;
@@ -20,11 +21,15 @@ const DRAG_SNAP_PX = 60;
 // 드래그로 간주할 최소 이동량 — 이 이하는 클릭으로 처리(링크 이동 허용).
 const DRAG_CLICK_TOLERANCE_PX = 6;
 
+// lang: 슬라이드 링크 경로와 화살표·점 버튼의 접근성 라벨을 해당 언어로.
 export default function ProjectCarousel({
   projects,
+  lang = "ko",
 }: {
   projects: Project[];
+  lang?: Lang;
 }) {
+  const t = projectStrings[lang];
   // 기본은 첫 번째 슬라이드 선택 (실제 프로젝트가 앞에 오도록 부모에서 정렬됨).
   const [current, setCurrent] = useState(0);
   // 드래그 중 라이브 오프셋(px). 트랙 transform 에 더해져서 손가락 따라 이동하는 시각 피드백.
@@ -126,7 +131,7 @@ export default function ProjectCarousel({
             return (
               <Link
                 key={project.slug}
-                href={`/projects/${project.slug}`}
+                href={`${langPrefix(lang)}/projects/${project.slug}`}
                 aria-label={project.title}
                 draggable={false}
                 className={`group relative aspect-square shrink-0 overflow-hidden rounded-2xl transition-all duration-500 ${
@@ -186,7 +191,7 @@ export default function ProjectCarousel({
             <button
               type="button"
               onClick={prev}
-              aria-label="이전 프로젝트"
+              aria-label={t.prev}
               // left: 화살표 우측이 이미지 좌측에서 12px 떨어지도록.
               // (arrow width 44 + gap 12 + SLIDE_W/2 220 = 276)
               style={{ left: "max(1rem, calc(50vw - 276px))" }}
@@ -197,7 +202,7 @@ export default function ProjectCarousel({
             <button
               type="button"
               onClick={next}
-              aria-label="다음 프로젝트"
+              aria-label={t.next}
               style={{ right: "max(1rem, calc(50vw - 276px))" }}
               className="absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-lg text-[var(--foreground)] shadow-md backdrop-blur transition-all hover:bg-white hover:shadow-lg"
             >
@@ -215,7 +220,7 @@ export default function ProjectCarousel({
               key={i}
               type="button"
               onClick={() => setCurrent(i)}
-              aria-label={`${i + 1}번 프로젝트로 이동`}
+              aria-label={t.goTo(i + 1)}
               className={`h-1.5 rounded-full transition-all ${
                 i === current
                   ? "w-6 bg-[var(--foreground)]"

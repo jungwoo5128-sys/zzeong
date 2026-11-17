@@ -1,6 +1,6 @@
 // English home page (/en) — mirrors app/page.tsx structure with English copy.
-// Deep MDX content (project details, award modals, timeline entries) stays Korean
-// since translating all of it is out of scope for the light EN version.
+// Projects use the English translations (content/projects/en); award modals and
+// timeline entries stay Korean.
 // Nav labels remain English on both sides (they were already English).
 
 import Image from "next/image";
@@ -12,7 +12,7 @@ import CopyEmailButton from "@/components/CopyEmailButton";
 import AwardModalMdx from "@/components/AwardModalMdx";
 
 export default function EnglishHomePage() {
-  const featured = getProjects()
+  const featured = getProjects("en")
     .filter((p) => p.featured)
     .sort((a, b) => {
       const aPlaceholder = a.slug.startsWith("placeholder-");
@@ -321,11 +321,11 @@ export default function EnglishHomePage() {
             <div className="mt-6 h-px w-full bg-[var(--border)]" />
           </div>
           <div className="mt-12">
-            <ProjectCarousel projects={featured} />
+            <ProjectCarousel projects={featured} lang="en" />
           </div>
           <div className="mt-12 flex justify-center">
             <Link
-              href="/projects"
+              href="/en/projects"
               className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-xs font-medium uppercase tracking-[0.2em] shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5"
             >
               View all works

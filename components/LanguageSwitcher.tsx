@@ -2,24 +2,35 @@
 
 // 네비게이션 우측에 노출되는 EN / KO / JA 토글.
 // 현재 pathname으로 활성 언어 감지 → 활성 언어는 진한 색, 비활성은 muted.
-// URL 규약: / 는 한국어 홈, /en 은 영어 홈, /ja 는 일본어 홈. 하위 페이지의 다국어 지원은 추후 확장.
+// URL 규약: 한국어는 prefix 없음, 영어 /en, 일본어 /ja.
+// 번역본이 있는 페이지(홈·프로젝트)에서는 같은 페이지의 다른 언어로 이동하고,
+// 한국어만 있는 페이지(Timeline·Now)에서는 해당 언어 홈으로 보냄.
 
 import { Fragment } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { hasTranslation, langFromPath, langPrefix, stripLang } from "@/lib/i18n";
+import type { Lang } from "@/types/content";
 
-// 표시 순서대로. prefix가 없는 KO는 나머지 언어에 해당하지 않을 때 활성.
-const languages = [
-  { code: "en", label: "EN", href: "/en" },
-  { code: "ko", label: "KO", href: "/" },
-  { code: "ja", label: "JA", href: "/ja" },
+// 표시 순서대로.
+const languages: { code: Lang; label: string }[] = [
+  { code: "en", label: "EN" },
+  { code: "ko", label: "KO" },
+  { code: "ja", label: "JA" },
 ];
 
 export default function LanguageSwitcher() {
   const pathname = usePathname();
-  const matchesPrefix = (prefix: string) =>
-    pathname === prefix || pathname.startsWith(`${prefix}/`);
-  const active = matchesPrefix("/en") ? "en" : matchesPrefix("/ja") ? "ja" : "ko";
+  const active = langFromPath(pathname);
+  const basePath = stripLang(pathname);
+
+  // 언어별 이동할 주소 계산. /en/projects/trecord 에서 KO → /projects/trecord
+  const hrefFor = (lang: Lang) => {
+    const prefix = langPrefix(lang);
+    if (!hasTranslation(basePath)) return prefix || "/";
+    if (basePath === "/") return prefix || "/";
+    return `${prefix}${basePath}`;
+  };
 
   return (
     // 모바일에선 네비 공간이 빠듯해서 자간을 좁게, sm↑에서 원래대로.
@@ -33,7 +44,7 @@ export default function LanguageSwitcher() {
             </span>
           )}
           <Link
-            href={lang.href}
+            href={hrefFor(lang.code)}
             hrefLang={lang.code}
             aria-current={active === lang.code ? "page" : undefined}
             className={

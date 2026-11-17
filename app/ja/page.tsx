@@ -1,6 +1,6 @@
 // 일본어 홈 페이지(/ja) — 한국어 홈(app/page.tsx)과 같은 구조에 일본어 카피만 교체.
-// 프로젝트 상세·수상 모달·타임라인 같은 깊은 MDX 콘텐츠는 /en 과 마찬가지로 한국어 그대로 둠.
-// 최상위 div에 lang="ja" + .lang-ja 를 걸어 일본어 폰트와 줄바꿈 규칙(globals.css)을 적용.
+// 프로젝트는 일본어 번역본(content/projects/ja)을 쓰고, 수상 모달·타임라인은 한국어 그대로 둠.
+// 일본어 폰트·줄바꿈 규칙은 app/ja/layout.tsx 의 .lang-ja 래퍼에서 적용됨.
 
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function JapaneseHomePage() {
   // featured=true 프로젝트를 캐러셀에 노출. placeholder는 뒤로 정렬.
-  const featured = getProjects()
+  const featured = getProjects("ja")
     .filter((p) => p.featured)
     .sort((a, b) => {
       const aPlaceholder = a.slug.startsWith("placeholder-");
@@ -45,7 +45,7 @@ export default function JapaneseHomePage() {
   const camp2025Award = getAward("sogang-2025-startup-camp");
 
   return (
-    <div lang="ja" className="lang-ja">
+    <div>
       {/* ────────────── Landing ──────────────
           한국어 버전과 동일한 비주얼. 한자 좌우명 아래 캡션만 일본어. */}
       <div className="relative flex min-h-[calc(100svh-10rem)] flex-col overflow-hidden text-center">
@@ -354,11 +354,11 @@ export default function JapaneseHomePage() {
             <div className="mt-6 h-px w-full bg-[var(--border)]" />
           </div>
           <div className="mt-12">
-            <ProjectCarousel projects={featured} />
+            <ProjectCarousel projects={featured} lang="ja" />
           </div>
           <div className="mt-12 flex justify-center">
             <Link
-              href="/projects"
+              href="/ja/projects"
               className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-xs font-medium uppercase tracking-[0.2em] shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5"
             >
               View all works

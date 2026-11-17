@@ -1,0 +1,37 @@
+---
+title: "Trecord"
+slug: "trecord"
+lang: "en"
+summary: "A travel log app for people exploring Japan's smaller towns. Color in the cities you've visited on a map, with a per-region accessibility guide, trip photo logs, and anonymous one-line reviews, all in your own travel map."
+role: "Planning · Design · Full-stack Development · Marketing (Solo)"
+period: "2026.05 – Ongoing"
+---
+
+## Background
+
+After traveling to Japan many times, I wanted a visual record of the small towns I had visited. Existing apps focused on major tourist spots, and none went down to the level of individual municipalities (cities, towns, and villages). Japan also varies a lot by region in language support and payment options, which made it hard to judge in advance whether a place would be comfortable for me.
+
+I put both problems, a precise map to color in and a curated guide to how easy each region is to get around, into a single app.
+
+## Key features
+
+- Municipality-level map coloring: precise records from Tokyo's 23 wards out to remote Hokkaido towns like Wakkanai and Nemuro. Coloring works offline too.
+- Regional difficulty guide: 56 cities and districts rated on four axes (language, payment, ordering, crowds), from Lv1 (full tourist infrastructure) to Lv3 (local).
+- Photo logs per trip: create a trip, attach visited municipalities automatically, upload multiple photos, and view them in a lightbox.
+- Anonymous community: opt-in public one-line reviews per city, automatic filtering after three reports, and blocking authors.
+- Friends and public profiles: overlay a friend's map on yours, share a public profile link at `/u/nickname`, and referral links.
+- Native apps: released on the iOS App Store and Google Play at the same time.
+- Multilingual: Korean, English, and Japanese.
+
+## Design decisions
+
+- Open-source map stack: instead of the commercial Mapbox, I used the CSP-friendly build of MapLibre GL to render a completely blank map with no watermark or API costs. Solving a compatibility issue with the Vite 8 rolldown bundler was the turning point.
+- RLS + SECURITY DEFINER: cases like anonymous reviews and public profiles, which are shown to third parties but must not leak personal data, are safely isolated behind a single RPC. Authentication and permissions are handled inside SQL with no server code.
+- Reusing the web app as a native app: the same React code is packaged with Capacitor. I also built my own WebKit LocalStorage session injection, plist automation, and an idb-based self-verification pipeline on the simulator.
+- Content as code: the 56-region guide is managed as JSON files, and a seed script validates the schema, calculates levels automatically, and upserts to Supabase. Since content revisions flow through git commits, change history and rollbacks come for free.
+
+## Retrospective
+
+As a solo developer, I prioritized how long it would take to ship now over future scalability. The Supabase decision stands out most: bundling auth, database, storage, and realtime under one vendor let me finish the app without writing server code. On the other hand, losing two days to the MapLibre CSP issue taught me a rule: never switch to a new tool at the last moment before production.
+
+I am now in the early user acquisition stage through YouTuber and influencer marketing, and I plan to apply what I learn from this traffic to my next project.

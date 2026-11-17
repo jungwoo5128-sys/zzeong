@@ -1,31 +1,17 @@
+// 프로젝트 목록 (/projects) — 화면 본체는 components/ProjectsIndex.tsx 에서 언어별로 공유.
+
 import type { Metadata } from "next";
-import { getProjects } from "@/lib/content";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectsIndex from "@/components/ProjectsIndex";
 
 export const metadata: Metadata = {
   title: "Projects",
+  description: "만든 것과 만드는 중인 것.",
+  alternates: {
+    canonical: "/projects",
+    languages: { ko: "/projects", en: "/en/projects", ja: "/ja/projects" },
+  },
 };
 
-export default function ProjectsPage() {
-  const projects = getProjects();
-
-  return (
-    <div>
-      <header className="mb-10">
-        <h1 className="text-2xl font-semibold tracking-tight">Projects</h1>
-        <p className="mt-2 text-sm text-[var(--muted)]">
-          만든 것과 만드는 중인 것.
-        </p>
-      </header>
-      {projects.length === 0 ? (
-        <p className="text-sm text-[var(--muted)]">아직 등록된 프로젝트가 없습니다.</p>
-      ) : (
-        <div className="grid gap-3 sm:grid-cols-2">
-          {projects.map((p) => (
-            <ProjectCard key={p.slug} project={p} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
+export default function ProjectsKoPage() {
+  return <ProjectsIndex lang="ko" />;
 }

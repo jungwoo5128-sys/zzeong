@@ -1,19 +1,23 @@
 import Link from "next/link";
-import type { Project } from "@/types/content";
+import { langPrefix } from "@/lib/i18n";
+import type { Lang, Project } from "@/types/content";
 
 // 프로젝트 카드. 홈 Featured / /projects 목록에서 공용으로 씀.
 // showStack: 스택 pill을 카드 하단에 노출할지. 기본 true(목록 페이지 기본값),
 // 홈 Featured 처럼 미니멀하게 보여주고 싶은 곳에서는 false로 전달.
+// lang: 상세 페이지 링크를 해당 언어 경로(/en/projects/...)로 만들기 위해 사용.
 export default function ProjectCard({
   project,
   showStack = true,
+  lang = "ko",
 }: {
   project: Project;
   showStack?: boolean;
+  lang?: Lang;
 }) {
   return (
     <Link
-      href={`/projects/${project.slug}`}
+      href={`${langPrefix(lang)}/projects/${project.slug}`}
       className="group block rounded-lg border border-[var(--border)] p-5 transition-colors hover:border-[var(--foreground)]"
     >
       <div className="flex items-baseline justify-between gap-3">

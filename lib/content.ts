@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import type {
   Award,
   AwardFrontmatter,
+  Lang,
   Project,
   ProjectFrontmatter,
 } from "@/types/content";
@@ -23,10 +24,26 @@ function readMdxFiles(dir: string): { file: string; raw: string }[] {
     }));
 }
 
-export function getProjects(): Project[] {
+// 프로젝트 목록. lang이 en/ja면 content/projects/<lang>/<slug>.mdx 번역본을 한국어 원본 위에 덮어씀.
+// 번역본에는 바뀌는 필드(title, summary, role, period 등)와 본문만 적고,
+// image·stack·links·order 같은 공통 값은 원본에서 그대로 물려받음.
+// 번역본이 없는 프로젝트는 한국어 원본으로 폴백(lang 필드가 "ko"로 남음).
+export function getProjects(lang: Lang = "ko"): Project[] {
+  const translations = new Map<string, { data: Partial<ProjectFrontmatter>; content: string }>();
+  if (lang !== "ko") {
+    for (const { raw } of readMdxFiles(path.join(PROJECTS_DIR, lang))) {
+      const { data, content } = matter(raw);
+      translations.set(data.slug, { data, content });
+    }
+  }
+
   const items = readMdxFiles(PROJECTS_DIR).map(({ raw }) => {
     const { data, content } = matter(raw);
-    return { ...(data as ProjectFrontmatter), body: content };
+    const base = data as ProjectFrontmatter;
+    const t = translations.get(base.slug);
+    return t
+      ? { ...base, ...t.data, body: t.content }
+      : { ...base, body: content };
   });
   return items.sort((a, b) => {
     if (a.featured !== b.featured) return a.featured ? -1 : 1;
@@ -38,8 +55,8 @@ export function getProjects(): Project[] {
   });
 }
 
-export function getProject(slug: string): Project | null {
-  return getProjects().find((p) => p.slug === slug) ?? null;
+export function getProject(slug: string, lang: Lang = "ko"): Project | null {
+  return getProjects(lang).find((p) => p.slug === slug) ?? null;
 }
 
 // 수상 이력 상세 (content/awards/*.mdx). 파일 없는 수상은 null 반환.

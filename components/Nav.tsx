@@ -1,14 +1,23 @@
-import Link from "next/link";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
+"use client";
 
-// 상단 네비게이션 항목. 왼쪽 로고("zzeong")는 홈으로, 오른쪽 링크는 각 섹션.
+// 현재 언어(pathname)에 맞춰 로고·Projects 링크를 /en, /ja 경로로 바꾸기 위해 클라이언트 컴포넌트.
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { langFromPath, langPrefix } from "@/lib/i18n";
+
+// 상단 네비게이션 항목. 왼쪽 로고는 홈으로, 오른쪽 링크는 각 섹션.
+// translated: 번역본이 있는 섹션은 현재 언어 prefix를 붙임. Timeline·Now는 한국어만 있음.
 const items = [
-  { href: "/projects", label: "Projects" },
-  { href: "/timeline", label: "Timeline" },
-  { href: "/now", label: "Now" },
+  { href: "/projects", label: "Projects", translated: true },
+  { href: "/timeline", label: "Timeline", translated: false },
+  { href: "/now", label: "Now", translated: false },
 ];
 
 export default function Nav() {
+  const prefix = langPrefix(langFromPath(usePathname()));
+
   return (
     // 무색 배경 + 어두운 텍스트. kyne 사이트 참조 → 미니멀·에디토리얼 방향.
     // 색 배경 대신 컨텐츠 배경(#fafafa) 그대로 사용, 아래 얇은 구분선만.
@@ -18,7 +27,7 @@ export default function Nav() {
             (랜딩의 이탤릭 세리프와 대비되며 헤더가 브랜드 앵커 역할)
             모바일에선 "Jeongwoo"만 노출(공간 절약), sm↑에선 "Jeongwoo Choe."로 완결. */}
         <Link
-          href="/"
+          href={prefix || "/"}
           className="shrink-0 font-pretendard text-base font-bold tracking-tight sm:text-lg"
         >
           Jeongwoo<span className="hidden sm:inline"> Choe.</span>
@@ -31,7 +40,7 @@ export default function Nav() {
             {items.map((it) => (
               <li key={it.href}>
                 <Link
-                  href={it.href}
+                  href={it.translated ? `${prefix}${it.href}` : it.href}
                   className="transition-colors hover:text-[var(--foreground)]"
                 >
                   {it.label}
