@@ -71,6 +71,25 @@ body {
   font-feature-settings: "palt";
 }
 
+/* 일본어 페이지(/ja) 전용. 일본어는 띄어쓰기가 없어서 body의 keep-all을 그대로 두면
+   문장 전체가 한 덩어리가 되어 줄바꿈이 안 됨 → normal로 되돌리고,
+   지원 브라우저(Chrome 119+)에서는 auto-phrase로 문절 단위 줄바꿈.
+   line-break: strict 는 「、。ー」 같은 문자가 줄 맨 앞에 오지 않게 막아 줌. */
+.lang-ja {
+  font-family:
+    "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic",
+    "Meiryo", var(--font-sans);
+  word-break: normal;
+  word-break: auto-phrase;
+  line-break: strict;
+}
+/* 일본어 페이지의 세리프 헤드라인은 명조체 계열로. */
+.lang-ja .font-hanja {
+  font-family:
+    "Hiragino Mincho ProN", "Noto Serif JP", "Yu Mincho", "YuMincho",
+    "Noto Serif KR", ui-serif, serif;
+}
+
 /* Reveal 컴포넌트용 스크롤 페이드 인 애니메이션.
    초기 상태: 아래에서 살짝 작게, 투명. visible 되면 원위치 + 원래 크기 + 완전 불투명.
    translateY 48px + scale 0.96으로 움직임을 이전보다 크게 하고,

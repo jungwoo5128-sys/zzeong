@@ -23,10 +23,11 @@ export default function Nav() {
         >
           Jeongwoo<span className="hidden sm:inline"> Choe.</span>
         </Link>
-        {/* 우측 그룹: 언어 토글 + 네비 아이템. 모바일에선 gap 최소, sm↑에서 넉넉히. */}
+        {/* 우측 그룹: 언어 토글 + 네비 아이템. 모바일에선 gap 최소, sm↑에서 넉넉히.
+            375px 폭에서 넘치지 않도록 모바일 자간은 0.06em으로 좁히고 sm↑에서 0.15em. */}
         <div className="flex items-center gap-3 sm:gap-10">
           <LanguageSwitcher />
-          <ul className="flex items-center gap-3 text-xs uppercase tracking-[0.15em] text-[var(--muted)] sm:gap-8">
+          <ul className="flex items-center gap-3 text-xs uppercase tracking-[0.06em] text-[var(--muted)] sm:gap-8 sm:tracking-[0.15em]">
             {items.map((it) => (
               <li key={it.href}>
                 <Link
