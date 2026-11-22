@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 
 const description =
-  "관찰한 실제 페인포인트를 제품으로 만드는 사람. 빌더 · 창업동아리 · 기록.";
+  "관찰한 페인포인트를 프로덕트로 구현하는 사람. 최정우의 퍼스널 사이트.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://zzeong.com"),
@@ -20,8 +20,9 @@ export const metadata: Metadata = {
     siteName: "zzeong",
     type: "website",
   },
+  // 큰 이미지 카드 — OG 이미지(app/opengraph-image.tsx)를 가로로 크게 노출.
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "zzeong",
     description,
   },
