@@ -6,6 +6,8 @@ summary: "An AI character chat app for people learning Japanese. Chat with chara
 role: "Planning · Design · Development (Solo)"
 period: "2026.10 – Ongoing"
 links:
+  - name: "App Store"
+    url: "https://apps.apple.com/kr/app/%EC%83%A4%EB%B2%A0%EB%A1%9C-%EC%BA%90%EB%A6%AD%ED%84%B0%EC%99%80-%EC%9D%BC%EB%B3%B8%EC%96%B4-%EC%B1%84%ED%8C%85/id6837897185"
   - name: "About the app"
     url: "https://nihongo.ddukddaksoft.com/about"
 ---
@@ -31,4 +33,4 @@ The name Shabero comes from しゃべる (to chat). The goal was an app you reop
 - Pronunciation comes from code, not the model: for beginners, the readings and furigana are generated with kuromoji morphological analysis and rules, because a model reads the same sentence differently each time.
 - Characters remember, and they know the time: older conversations are summarized into a memory note for each character, so they pick up like a friend would. The user's local time is matched against each character's schedule to prevent slips like saying "I'm at the shop now" on a day off.
 - Costs are capped on the server: the Claude API is only called server-side, and per-user and global daily message limits are counted in Firestore transactions.
-- The web app becomes the mobile app: the same Next.js web app is wrapped with Capacitor for an iPhone app in progress.
+- The web app becomes the mobile app: the same Next.js web app is wrapped with Capacitor and released as an iPhone app (App Store, 2026.11).
