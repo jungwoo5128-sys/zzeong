@@ -2,7 +2,10 @@ export type Lang = "ko" | "en" | "ja";
 
 export type ProjectLink = {
   name: string;
-  url: string;
+  // 아직 공개 전인 링크(disabled: true)는 주소 없이 이름만 둘 수 있음.
+  url?: string;
+  // true면 상세 페이지에서 클릭 안 되는 회색 글자 + "준비 중" 표시. 출시되면 url 넣고 이 줄을 지우면 됨.
+  disabled?: boolean;
 };
 
 export type ProjectFrontmatter = {

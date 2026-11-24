@@ -39,6 +39,7 @@ export const projectStrings = {
     prev: "이전 프로젝트",
     next: "다음 프로젝트",
     goTo: (n: number) => `${n}번 프로젝트로 이동`,
+    comingSoon: "준비 중",
   },
   en: {
     subtitle: "Things I’ve built and am building.",
@@ -46,6 +47,7 @@ export const projectStrings = {
     prev: "Previous project",
     next: "Next project",
     goTo: (n: number) => `Go to project ${n}`,
+    comingSoon: "Coming soon",
   },
   ja: {
     subtitle: "作ったもの、作っているもの。",
@@ -53,5 +55,6 @@ export const projectStrings = {
     prev: "前のプロジェクト",
     next: "次のプロジェクト",
     goTo: (n: number) => `${n}番目のプロジェクトへ`,
+    comingSoon: "準備中",
   },
 } satisfies Record<Lang, unknown>;

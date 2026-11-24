@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import { getProject, getProjects } from "@/lib/content";
-import { LANGS, langPrefix } from "@/lib/i18n";
+import { LANGS, langPrefix, projectStrings } from "@/lib/i18n";
 import type { Lang } from "@/types/content";
 
 // 빌드 시 정적 생성할 slug 목록 (언어와 무관하게 한국어 원본 기준).
@@ -69,17 +69,29 @@ export default async function ProjectDetail({
             <>
               <dt className="text-[var(--muted)]">Links</dt>
               <dd className="flex flex-wrap gap-x-3 gap-y-1">
-                {project.links.map((l) => (
-                  <a
-                    key={l.url}
-                    href={l.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline underline-offset-4"
-                  >
-                    {l.name}
-                  </a>
-                ))}
+                {project.links.map((l) =>
+                  // 비활성 링크: 클릭 안 되는 회색 글자 + 언어별 "준비 중" 표시
+                  l.disabled || !l.url ? (
+                    <span
+                      key={l.name}
+                      aria-disabled="true"
+                      className="cursor-not-allowed text-[var(--muted)]"
+                    >
+                      {l.name}{" "}
+                      <span className="text-xs">({projectStrings[lang].comingSoon})</span>
+                    </span>
+                  ) : (
+                    <a
+                      key={l.name}
+                      href={l.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline underline-offset-4"
+                    >
+                      {l.name}
+                    </a>
+                  ),
+                )}
               </dd>
             </>
           )}
